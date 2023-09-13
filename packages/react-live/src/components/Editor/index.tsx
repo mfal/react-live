@@ -12,34 +12,50 @@ export type Props = {
   tabMode?: "focus" | "indentation";
   theme?: typeof themes.nightOwl;
   onChange?(value: string): void;
-};
+  editorRef?: React.RefObject<HTMLPreElement>;
+} & Omit<React.HTMLAttributes<HTMLPreElement>, "onChange">;
 
 const CodeEditor = (props: Props) => {
-  const editorRef = useRef(null);
-  const [code, setCode] = useState(props.code || "");
+  const {
+    code: origCode,
+    className,
+    style,
+    tabMode,
+    theme: origTheme,
+    prism,
+    language,
+    disabled,
+    onChange,
+    editorRef,
+    ...rest
+  } = props;
+
+  const _editorRef = editorRef || useRef(null);
+  const [code, setCode] = useState(origCode || "");
   const { theme } = props;
 
   useEffect(() => {
-    setCode(props.code);
-  }, [props.code]);
+    setCode(origCode);
+  }, [origCode]);
 
-  useEditable(editorRef, (text) => setCode(text.slice(0, -1)), {
-    disabled: props.disabled,
-    indentation: props.tabMode === "indentation" ? 2 : undefined,
+  useEditable(_editorRef, (text) => setCode(text.slice(0, -1)), {
+    disabled: disabled,
+    indentation: tabMode === "indentation" ? 2 : undefined,
   });
 
   useEffect(() => {
-    if (props.onChange) {
-      props.onChange(code);
+    if (onChange) {
+      onChange(code);
     }
   }, [code]);
 
   return (
-    <div className={props.className} style={props.style}>
+    <div className={className} style={style}>
       <Highlight
+        prism={prism || Prism}
         code={code}
-        theme={props.theme || themes.nightOwl}
-        language={props.language}
+        theme={origTheme || themes.nightOwl}
+        language={language}
       >
         {({
           className: _className,
@@ -58,8 +74,9 @@ const CodeEditor = (props: Props) => {
               ...(theme && typeof theme.plain === "object" ? theme.plain : {}),
               ..._style,
             }}
-            ref={editorRef}
+            ref={_editorRef}
             spellCheck="false"
+            {...rest}
           >
             {tokens.map((line, lineIndex) => (
               <span key={`line-${lineIndex}`} {...getLineProps({ line })}>
