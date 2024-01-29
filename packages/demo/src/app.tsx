@@ -1,4 +1,4 @@
-import { LiveProvider, LiveEditor, LivePreview, LiveError } from "react-live";
+import { LiveProvider, LiveEditor, LivePreview, LiveError } from "@mfalkenberg/react-live-ssr";
 
 const code = `
 function handleClick() {

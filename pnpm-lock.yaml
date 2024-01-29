@@ -51,15 +51,15 @@ importers:
 
   packages/demo:
     dependencies:
+      '@mfalkenberg/react-live-ssr':
+        specifier: '*'
+        version: link:../react-live
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-live:
-        specifier: '*'
-        version: link:../react-live
     devDependencies:
       '@types/react':
         specifier: ^18.0.31
@@ -238,7 +238,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       react-live:
         specifier: '*'
-        version: link:../packages/react-live
+        version: 4.1.5(react-dom@18.2.0)(react@18.2.0)
       tailwindcss:
         specifier: ^3.2.7
         version: 3.2.7(postcss@8.4.21)
@@ -15677,6 +15677,20 @@ packages:
 
   /react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+    dev: false
+
+  /react-live@4.1.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ul3Zwvqvh6KTg8j7xGCT26+c8J9vQ+LFUrZCbrrrzEExuVB/39s1GKG3NsywnL+aGAjpfnUTaVCe7KlKIvVPiw==}
+    engines: {node: '>= 0.12.0', npm: '>= 2.0.0'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    dependencies:
+      prism-react-renderer: 2.0.6(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      sucrase: 3.31.0
+      use-editable: 2.3.3(react@18.2.0)
     dev: false
 
   /react-loadable-ssr-addon-v5-slorber@1.0.1(@docusaurus/react-loadable@5.5.2)(webpack@5.76.3):
